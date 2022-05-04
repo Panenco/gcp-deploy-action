@@ -2,7 +2,7 @@ name: "GCP App Engine deploy and version cleaner"
 description: "Action to deploy GCP App engine service and remove old versions"
 inputs:
   credentials_json:
-    description: "GCP Service account JSON credentials file. 1. GCP IAM; 2. Service Accounts; 3. Create deployer if not exists; 4. Keys (in new deployer role); 5. Add key; 6. Create key; 7. JSON; 8. Convert to base64 string"
+    description: "GCP Service account JSON credentials file. 1. GCP IAM; 2. Service Accounts; 3. Create deployer if not exists; 4. Keys (in new deployer role); 5. Add key; 6. Create key; 7. JSON"
     required: true
 
   service_id:
