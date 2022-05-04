@@ -15,6 +15,10 @@
 5. Add key
 6. Create key
 7. JSON
+8. Convert to base64:
+   ```bash
+   base64 filename.json
+   ```
 
 ### `service_id`
 
