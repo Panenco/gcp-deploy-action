@@ -14,7 +14,7 @@
 4. Keys (in new deployer role)
 5. Add key
 6. Create key
-7. JSON.
+7. JSON
 
 ### `service_id`
 
@@ -42,10 +42,10 @@ jobs:
     name: deploy
     steps:
       - name: Deploy to app engine
-        uses: Panenco/gcp-deploy@v1
+        uses: Panenco/gcp-deploy-action@v1
         with:
-          credentials_json: "{{ secrets.gcp_credentials_json }}"
-          service_id: "{{ inputs.gcp_service_id }}"
-          project_id: "{{ inputs.gcp_project_id }}"
+          credentials_json: "{{ secrets.GCP_CREDENTIALS_JSON }}"
+          service_id: "{{ secrets.GCP_SERVICE_ID }}"
+          project_id: "{{ secrets.GCP_PROJECT_ID }}"
           app_yaml_path: "staging.yml"
 ```
