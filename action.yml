@@ -1,41 +1,41 @@
-name: "GCP App Engine deploy and version cleaner"
-description: "Action to deploy GCP App engine service and remove old versions"
+name: 'GCP App Engine deploy and version cleaner'
+description: 'Action to deploy GCP App engine service and remove old versions'
 inputs:
   credentials_json:
-    description: "GCP Service account JSON credentials file. 1. GCP IAM; 2. Service Accounts; 3. Create deployer if not exists; 4. Keys (in new deployer role); 5. Add key; 6. Create key; 7. JSON"
+    description: 'GCP Service account JSON credentials file. 1. GCP IAM; 2. Service Accounts; 3. Create deployer if not exists; 4. Keys (in new deployer role); 5. Add key; 6. Create key; 7. JSON'
     required: true
 
   service_id:
-    description: "The ID of the app engine service"
+    description: 'The ID of the app engine service'
     required: true
 
   project_id:
-    description: "The ID of the GCP project"
+    description: 'The ID of the GCP project'
     required: true
 
   app_yaml_path:
-    description: "The path to the GCP app.yaml file"
+    description: 'The path to the GCP app.yaml file'
     required: true
 
   extra_deploy_args:
-    description: "Extra arguments to use when deploying the application"
+    description: 'Extra arguments to use when deploying the application'
     required: false
-    default: ""
+    default: ''
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Google cloud auth
-      uses: "google-github-actions/auth@v0"
+      uses: 'google-github-actions/auth@v0'
       with:
         credentials_json: ${{ inputs.credentials_json }}
 
-    - name: "Set up Cloud SDK"
-      uses: "google-github-actions/setup-gcloud@v0"
-
-    - name: Remove all versions except 6 most recent ones
-      shell: bash
-      run: gcloud app versions list --format "value(version.id)" --sort-by "~version.createTime" --service ${{ inputs.service_id }} --project ${{ inputs.project_id }} | tail -n +6 | xargs -r gcloud app versions delete --quiet --project ${{ inputs.project_id }}
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v0'
 
     - name: Deploy App engine with ${{ inputs.app_yaml_path }}
       shell: bash
       run: gcloud --project ${{ inputs.project_id }} app deploy ${{ inputs.app_yaml_path }} ${{ inputs.extra_deploy_args }}
+
+    - name: Remove all versions except 6 most recent ones
+      shell: bash
+      run: gcloud app versions list --format "value(version.id)" --sort-by "~version.createTime" --service ${{ inputs.service_id }} --project ${{ inputs.project_id }} | tail -n +6 | xargs -r gcloud app versions delete --quiet --project ${{ inputs.project_id }}
