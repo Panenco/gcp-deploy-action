@@ -38,9 +38,10 @@ jobs:
     name: deploy
     steps:
       - name: Deploy to app engine
-        uses: Panenco/gcp-deploy-action@v1
+        uses: Panenco/gcp-deploy-action@v2
         with:
-          credentials_json: "{{ secrets.GCP_CREDENTIALS_JSON }}"
+          workload_identity_provider: "{{ secrets.WORKLOAD_IDENTITY_PROVIDER }}"
+          service_account: "{{ secrets.SERVICE_ACCOUNT }}"
           service_id: "{{ secrets.GCP_SERVICE_ID }}"
           project_id: "{{ secrets.GCP_PROJECT_ID }}"
           app_yaml_path: "staging.yml"
