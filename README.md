@@ -4,18 +4,13 @@
 
 ## Inputs
 
-### `credentials_json`
+### `workload_identity_provider`
 
-**Required** GCP Service account JSON credentials file.
+**Required** The [workload identity provider](https://cloud.google.com/iam/docs/workload-identity-federation)
 
-1. GCP IAM
-2. Service Accounts
-3. Create deployer if not exists
-4. Keys (in new deployer role)
-5. Add key
-6. Create key
-7. JSON
-8. Use the contents of this json file in a Github secret
+### `service_account`
+
+**Required** GCP service account
 
 ### `service_id`
 
@@ -43,9 +38,10 @@ jobs:
     name: deploy
     steps:
       - name: Deploy to app engine
-        uses: Panenco/gcp-deploy-action@v1
+        uses: Panenco/gcp-deploy-action@v2
         with:
-          credentials_json: "{{ secrets.GCP_CREDENTIALS_JSON }}"
+          workload_identity_provider: "{{ secrets.WORKLOAD_IDENTITY_PROVIDER }}"
+          service_account: "{{ secrets.SERVICE_ACCOUNT }}"
           service_id: "{{ secrets.GCP_SERVICE_ID }}"
           project_id: "{{ secrets.GCP_PROJECT_ID }}"
           app_yaml_path: "staging.yml"
