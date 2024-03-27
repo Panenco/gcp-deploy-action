@@ -38,7 +38,7 @@ jobs:
     name: deploy
     steps:
       - name: Deploy to app engine
-        uses: Panenco/gcp-deploy-action@v2
+        uses: Panenco/gcp-deploy-action@v3
         with:
           workload_identity_provider: "{{ secrets.WORKLOAD_IDENTITY_PROVIDER }}"
           service_account: "{{ secrets.SERVICE_ACCOUNT }}"
